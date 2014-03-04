@@ -1,0 +1,118 @@
+<div class="todo-images">
+  <img ng-src="{{img}}"
+       class="todo"
+       ng-repeat="img in todo.images"
+       ng-class="{active: mainImageUrl==img}">
+</div>
+
+<h1>{{todo.name}}</h1>
+
+<p>{{todo.description}}</p>
+
+<ul class="todo-thumbs">
+  <li ng-repeat="img in todo.images">
+    <img ng-src="{{img}}" ng-click="setImage(img)">
+  </li>
+</ul>
+
+<ul class="specs">
+  <li>
+    <span>Availability and Networks</span>
+    <dl>
+      <dt>Availability</dt>
+      <dd ng-repeat="availability in todo.availability">{{availability}}</dd>
+    </dl>
+  </li>
+  <li>
+    <span>Battery</span>
+    <dl>
+      <dt>Type</dt>
+      <dd>{{todo.battery.type}}</dd>
+      <dt>Talk Time</dt>
+      <dd>{{todo.battery.talkTime}}</dd>
+      <dt>Standby time (max)</dt>
+      <dd>{{todo.battery.standbyTime}}</dd>
+    </dl>
+  </li>
+  <li>
+    <span>Storage and Memory</span>
+    <dl>
+      <dt>RAM</dt>
+      <dd>{{todo.storage.ram}}</dd>
+      <dt>Internal Storage</dt>
+      <dd>{{todo.storage.flash}}</dd>
+    </dl>
+  </li>
+  <li>
+    <span>Connectivity</span>
+    <dl>
+      <dt>Network Support</dt>
+      <dd>{{todo.connectivity.cell}}</dd>
+      <dt>WiFi</dt>
+      <dd>{{todo.connectivity.wifi}}</dd>
+      <dt>Bluetooth</dt>
+      <dd>{{todo.connectivity.bluetooth}}</dd>
+      <dt>Infrared</dt>
+      <dd>{{todo.connectivity.infrared | checkmark}}</dd>
+      <dt>GPS</dt>
+      <dd>{{todo.connectivity.gps | checkmark}}</dd>
+    </dl>
+  </li>
+  <li>
+    <span>Android</span>
+    <dl>
+      <dt>OS Version</dt>
+      <dd>{{todo.android.os}}</dd>
+      <dt>UI</dt>
+      <dd>{{todo.android.ui}}</dd>
+    </dl>
+  </li>
+  <li>
+    <span>Size and Weight</span>
+    <dl>
+      <dt>Dimensions</dt>
+      <dd ng-repeat="dim in todo.sizeAndWeight.dimensions">{{dim}}</dd>
+      <dt>Weight</dt>
+      <dd>{{todo.sizeAndWeight.weight}}</dd>
+    </dl>
+  </li>
+  <li>
+    <span>Display</span>
+    <dl>
+      <dt>Screen size</dt>
+      <dd>{{todo.display.screenSize}}</dd>
+      <dt>Screen resolution</dt>
+      <dd>{{todo.display.screenResolution}}</dd>
+      <dt>Touch screen</dt>
+      <dd>{{todo.display.touchScreen | checkmark}}</dd>
+    </dl>
+  </li>
+  <li>
+    <span>Hardware</span>
+    <dl>
+      <dt>CPU</dt>
+      <dd>{{todo.hardware.cpu}}</dd>
+      <dt>USB</dt>
+      <dd>{{todo.hardware.usb}}</dd>
+      <dt>Audio / headphone jack</dt>
+      <dd>{{todo.hardware.audioJack}}</dd>
+      <dt>FM Radio</dt>
+      <dd>{{todo.hardware.fmRadio | checkmark}}</dd>
+      <dt>Accelerometer</dt>
+      <dd>{{todo.hardware.accelerometer | checkmark}}</dd>
+    </dl>
+  </li>
+  <li>
+    <span>Camera</span>
+    <dl>
+      <dt>Primary</dt>
+      <dd>{{todo.camera.primary}}</dd>
+      <dt>Features</dt>
+      <dd>{{todo.camera.features.join(', ')}}</dd>
+    </dl>
+  </li>
+  <li>
+    <span>Additional Features</span>
+    <dd>{{todo.additionalFeatures}}</dd>
+  </li>
+</ul>

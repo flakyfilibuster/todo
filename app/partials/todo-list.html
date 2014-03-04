@@ -1,0 +1,33 @@
+<div class="large-3 medium-3 columns">
+<!--Sidebar content-->
+        <input ng-model="query" type="text" placeholder="Search">
+        <select ng-model="orderProp">
+            <option value="name">Alphabetical</option>
+            <option value="age">Newest</option>
+        </select>
+<!--Sidebar content END-->
+</div>
+
+<div class="large-9 medium-9 columns">
+<!--Body content-->
+        <div id="todo-form">
+        <form ng-submit="createTodo()">
+            <div class="row collapse">
+                <div class="large-10 medium-10 columns">
+                    <input type="text" class="form-control input-lg" placeholder="Things I wanna do" ng-model="formData.name" required>
+                </div>
+                <div class="large-2 medium-2 columns">
+                    <a class="button expand postfix" ng-click="createTodo()">Add</a>
+                </div>
+            </div>
+        </form>
+        </div>
+
+        <ul class="todos">
+            <li ng-repeat="todo in todos | filter:query | orderBy:orderProp">
+                {{todo.name}}
+                <a href="#" class="delete" ng-click="deleteTodo(todo._id)">x</a>
+            </li>
+        </ul>
+<!--Body content END-->
+</div>
