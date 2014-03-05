@@ -17,7 +17,7 @@
                     <input type="text" class="form-control input-lg" placeholder="Things I wanna do" ng-model="formData.name" required>
                 </div>
                 <div class="large-2 medium-2 columns">
-                    <a class="button expand postfix" ng-click="createTodo()">Add</a>
+                    <button type="submit" class="button expand postfix" ng-submit="createTodo()">Add</button>
                 </div>
             </div>
         </form>
@@ -26,7 +26,7 @@
         <ul class="todos">
             <li ng-repeat="todo in todos | filter:query | orderBy:orderProp">
                 {{todo.name}}
-                <a href="#" class="delete" ng-click="deleteTodo(todo._id)">x</a>
+                <a href="#" class="fa fa-times delete" ng-click="deleteTodo(todo._id)"></a>
             </li>
         </ul>
 <!--Body content END-->

@@ -14,14 +14,12 @@ todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', function($scope
     })
 
     $scope.createTodo = function() {
-        if ($scope.formData.name) {
             Todo.save($scope.formData);
             $scope.formData = {};
             Todo.query(function(data) {
                 $scope.todos = data;
                 $scope.$apply();
             })
-        }
     };
 
     $scope.deleteTodo = function(target) {
