@@ -92,4 +92,7 @@ h1 {
 .delete {
     position: absolute;
     right: 30px;
+    line-height: 50px;
+    opacity: 0.5;
+    color: grey;
 }
