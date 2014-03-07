@@ -20,7 +20,21 @@ todocatServices.factory('Todo', function() {
             });
         }, 
         save: function(todo, callback) {
+            var createDate = new Date();
+            todo.created = {
+                date: createDate.toDateString(),
+                time: createDate.toLocaleTimeString("de")
+            };
             db.insert(todo, function (err, newDoc) { });
+        },
+        complete: function(todo) {
+            var createDate = new Date(),
+                date = createDate.toDateString(),
+                time = createDate.toLocaleTimeString("de");
+
+            db.update({ _id: todo },
+                      { $set: { "completed.date": date, "completed.time": time } },
+                      {}, function () {})
         },
         delete: function(todo) {
             db.remove({_id: todo}, {}, function (err, numRemoved) {});
