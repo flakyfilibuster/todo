@@ -3,31 +3,42 @@
         <input ng-model="query" type="text" placeholder="Search">
         <select ng-model="orderProp">
             <option value="name">Alphabetical</option>
-            <option value="age">Newest</option>
+            <option value="created.time">Newest</option>
         </select>
+        <select ng-model="status">
+            <option value="uncompleted">Status: Uncompleted</option>
+            <option value="completed">Status: Completed</option>
+            <option value="all">Status: All</option>
+        </select>
+        <ff-sidenav></ff-sidenav>
 <!--Sidebar content END-->
 </div>
 
 <div class="large-9 medium-9 columns">
 <!--Body content-->
-        <div id="todo-form">
-        <form ng-submit="createTodo()">
-            <div class="row collapse">
-                <div class="large-10 medium-10 columns">
-                    <input type="text" class="form-control input-lg" placeholder="Things I wanna do" ng-model="formData.name" required>
-                </div>
-                <div class="large-2 medium-2 columns">
-                    <button type="submit" class="button expand postfix">Add</button>
-                </div>
-            </div>
-        </form>
+        <div class="todo-items large-6 medium-6 columns">
+            <todoform></todoform>
+
+            <ul class="todos">
+                <li ng-repeat="todo in todos | filter:query | orderBy:orderProp | status:this | category:this" ng-click="todoDetail(todo)" ng-class="{completed : todo.completed}">
+                        <i ng-hide="todo.completed" class="fa fa-square-o complete" ng-click="completeTodo(todo); $event.stopPropagation()"></i>
+                        <i ng-show="todo.completed" class="fa fa-check-square-o complete" ng-click="completeTodo(todo); $event.stopPropagation()"></i>
+                    {{todo.name}}
+                    <i class="fa fa-times delete" ng-click="deleteTodo(todo._id); $event.stopPropagation()"></i>
+                </li>
+            </ul>
         </div>
 
-        <ul class="todos">
-            <li ng-repeat="todo in todos | filter:query | orderBy:orderProp">
-                {{todo.name}}
-                <a href="#" class="fa fa-times delete" ng-click="deleteTodo(todo._id)"></a>
-            </li>
-        </ul>
+        <div class="large-6 medium-6 columns">
+            <div class="todo-detail">
+                <h3>{{selected.name}}</h3>
+                <h5>Created: {{selected.created.date}} @ {{selected.created.time}}</h5>
+                <h5 ng-show="selected.completed">Completed: {{selected.completed.date}} @ {{selected.completed.time}}</h5>
+                <br>
+                <h4 class="todo-notes">Notes</h4>
+                <hr>
+                <flaky-editable></flaky-editable>
+            </div>
+        </div>
 <!--Body content END-->
 </div>
