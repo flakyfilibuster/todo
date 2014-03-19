@@ -7,38 +7,67 @@ var Datastore = require('nedb'),
 
 var todocatServices = angular.module('todocatServices', []);
 
-todocatServices.factory('Todo', function() {
+todocatServices.factory('Todo', function($q) {
+
     return {
-        query: function(callback){
-            db.find({}, function (err, docs) {
-                callback(docs);
-            });
+        defer: function() {
+            return $q.defer();
         },
-        get: function(id, callback){
-            db.findOne(id , function (err, docs) {
-                callback(docs);
+        getAll: function(){
+            var defer = this.defer();
+            db.find({}, function (err, docs) {
+                defer.resolve(docs);
             });
+            return defer.promise;
+        },
+        get: function(todo){
+            var defer = this.defer();
+            db.findOne({_id: todo._id} , function (err, docs) {
+                defer.resolve(docs);
+            });
+            return defer.promise;
         }, 
+        update: function(todo, note) {
+            var defer = this.defer();
+            db.update({ _id: todo._id },
+                      { $set: { notes: note } },
+                      {}, function (err, numUpdated) {
+                            defer.resolve(numUpdated);
+                      });
+            return defer.promise;
+        },
         save: function(todo, callback) {
-            var createDate = new Date();
+            var createDate = new Date(),
+                defer = this.defer();
             todo.created = {
                 date: createDate.toDateString(),
                 time: createDate.toLocaleTimeString("de")
             };
-            db.insert(todo, function (err, newDoc) { });
+            todo.notes = "Double-Click to add notes";
+            db.insert(todo, function (err, newDoc) {
+                defer.resolve(newDoc);
+            });
+            return defer.promise;
         },
         complete: function(todo) {
-            var createDate = new Date(),
-                date = createDate.toDateString(),
-                time = createDate.toLocaleTimeString("de");
+            var defer = this.defer(),
+                completeDate = new Date(),
+                date = completeDate.toDateString(),
+                time = completeDate.toLocaleTimeString("de");
 
-            db.update({ _id: todo },
+            db.update({ _id: todo._id },
                       { $set: { "completed.date": date, "completed.time": time } },
-                      {}, function () {})
+                      {}, function (err, numUpdated) {
+                            defer.resolve(numUpdated);
+                      });
+            return defer.promise;
         },
         delete: function(todo) {
-            db.remove({_id: todo}, {}, function (err, numRemoved) {});
+            var defer = this.defer();
+            db.remove({_id: todo}, {}, function (err, numRemoved) {
+                defer.resolve(numRemoved);
+            });
+            return defer.promise;
         }
-    }
+    };
 });
-  
