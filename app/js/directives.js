@@ -36,8 +36,30 @@ todocatDirectives.directive("ffSidenav", function() {
     return {
         restrict: 'E',
         replace: true,
-        template: '<ul class="side-nav"><li class="active">All</li><li>Personal</li><li>Work</li><li>Important</li></ul>',
+        template: '<ul ng-click="clickMe($event)" class="ff-side-nav">'+
+                    '<li class="active">All</li>'+
+                    '<li class="">Personal</li>'+
+                    '<li class="">Work</li>'+
+                    '<li class="">Important</li>'+
+                  '</ul>',
         link: function(scope, element, attrs) {
+            scope.category = 'all'
+
+            scope.clickMe = function(input) {
+                if(input.target.classList.contains("active")) {
+                    return;
+                }
+
+                scope.category = input.target.innerHTML.toLowerCase();
+
+                for (var i=0, len = element[0].children.length; i<len; i++) {
+                    if (element[0].children[i].classList.contains("active")) {
+                        element[0].children[i].classList.remove("active");
+                        input.target.classList.add("active");
+                        return;
+                    }
+                }
+            };
         }
     };
 });
