@@ -7,6 +7,7 @@ var todocatApp = angular.module('todocatApp', [
   'todocatAnimations',
   'todocatControllers',
   'todocatFilters',
+  'todocatDirectives',
   'todocatServices'
 ]);
 
