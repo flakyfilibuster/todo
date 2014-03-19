@@ -33,5 +33,6 @@ todocatFilters.filter('status', function() {
 
 todocatFilters.filter('category', function() {
   return function(todos, scope) {
+      return todos;
   };
 });
