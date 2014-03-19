@@ -2,10 +2,19 @@
 
 body {
   padding-top: 20px;
+  height: 100%;
 }
 
-#todo-form {
-    height: 53px;
+.view-container, .view-frame, .columns {
+    height: 100%;
+}
+
+#todo-input {
+    margin-bottom: 1px;
+}
+
+.todo-items {
+    overflow-y: auto;
 }
 
 .todo-images {
@@ -89,10 +98,32 @@ h1 {
   border-bottom: 1px solid gray;
 }
 
-.delete {
-    position: absolute;
-    right: 30px;
-    line-height: 50px;
+.delete, .complete {
     opacity: 0.5;
     color: grey;
+}
+
+.delete {
+    margin-top: 17px;
+    position: absolute;
+    right: 30px;
+}
+
+#todo-notes-textarea, .flaky-editable {
+    height: 150px;
+}
+
+li.completed {
+    text-decoration: line-through;
+    color: grey;
+    font-style: italic;
+}
+
+.flaky-editable {
+    cursor: pointer;
+}
+
+
+.flaky-editable:hover {
+    background: #ecfaff;
 }
