@@ -11,6 +11,8 @@ todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', function($scope
     $scope.formData = {};
     $scope.selected = null;
 
+
+
     Todo.getAll().then(function(data) {
             $scope.todos = data;
             $scope.selected = data[0];
@@ -19,7 +21,7 @@ todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', function($scope
     $scope.createTodo = function() {
         Todo.save($scope.formData).then(function() {
             Todo.getAll().then(function(data) {
-                $scope.formData = {};
+                $scope.formData.name = '';
                 $scope.todos = data;
             });
         });
