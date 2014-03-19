@@ -125,5 +125,30 @@ li.completed {
 
 
 .flaky-editable:hover {
-    background: #ecfaff;
+    background: #e1e1e1;
+}
+
+
+.ff-side-nav {
+    margin: 0;
+}
+
+.ff-side-nav li {
+   text-decoration: none;
+   list-style-type: none;
+   background-color: #f2f2f2;
+   text-align: center;
+   font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+   font-size: 0.875rem;
+   height: 2.3125rem;
+   padding: 0.5rem;
+}
+
+.ff-side-nav li:hover {
+    cursor: pointer;
+    background-color: #e1e1e1;
+}
+
+.ff-side-nav li.active {
+    background-color: white;
 }
