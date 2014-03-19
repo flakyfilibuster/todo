@@ -43,7 +43,7 @@ todocatDirectives.directive("ffSidenav", function() {
                     '<li class="">Important</li>'+
                   '</ul>',
         link: function(scope, element, attrs) {
-            scope.category = 'all'
+            scope.category = 'all';
 
             scope.clickMe = function(input) {
                 if(input.target.classList.contains("active")) {
