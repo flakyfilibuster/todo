@@ -1,0 +1,17 @@
+<div id="todo-form">
+    <form ng-submit="createTodo()">
+        <div class="row collapse">
+            <input id="todo-input" type="text" class="form-control input-lg" placeholder="Things I wanna do" ng-model="formData.name" maxlength="55" required autofocus>
+            <div class="large-10 medium-10 columns">
+                <select ng-model="formData.category">
+                    <option value="personal">Personal</option>
+                    <option value="work">Work</option>
+                    <option value="important">Important</option>
+                </select>
+            </div>
+            <div class="large-2 medium-2 columns">
+                <button type="submit" class="button expand postfix">Add</button>
+            </div>
+        </div>
+    </form>
+</div>
