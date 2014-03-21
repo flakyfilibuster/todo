@@ -49,6 +49,9 @@ todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', function($scope
     };
 
     $scope.completeTodo = function(target) {
+        if(target.completed) {
+            return;
+        }
         Todo.complete(target)
             .then(Todo.getAll()
             .then(function(data) {
