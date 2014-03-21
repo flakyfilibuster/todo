@@ -4,9 +4,9 @@
 
 var todocatDirectives = angular.module('todocatDirectives', ['ngSanitize']);
 
-todocatDirectives.directive("flakyEditable", function() {
+todocatDirectives.directive("ffEditable", function() {
     var editTemplate = '<textarea title="double-click to save me!"id="todo-notes-textarea" ng-show="isEditMode" ng-dblclick="switchToPreview($event); saveNotes(selected, $event)" cols="30" rows="10"></textarea>';
-    var previewTemplate = '<div title="double-click to edit me!" class="flaky-editable panel" ng-hide="isEditMode" ng-dblclick="switchToEdit($event)" ng-bind-html="selected.notes"></div>';
+    var previewTemplate = '<div title="double-click to edit me!" class="ff-editable panel" ng-hide="isEditMode" ng-dblclick="switchToEdit($event)" ng-bind-html="selected.notes"></div>';
 
     return {
         restrict: 'E',
@@ -38,9 +38,9 @@ todocatDirectives.directive("ffSidenav", function() {
         replace: true,
         template: '<ul ng-click="clickMe($event)" class="ff-side-nav">'+
                     '<li class="active">All</li>'+
-                    '<li class="">Personal</li>'+
-                    '<li class="">Work</li>'+
-                    '<li class="">Important</li>'+
+                    '<li><i class="fa fa-heart"></i>Personal</li>'+
+                    '<li><i class="fa fa-briefcase"></i>Work</li>'+
+                    '<li><i class="fa fa-exclamation-triangle"></i>Important</li>'+
                   '</ul>',
         link: function(scope, element, attrs) {
             scope.category = 'all';
@@ -50,7 +50,8 @@ todocatDirectives.directive("ffSidenav", function() {
                     return;
                 }
 
-                scope.category = input.target.innerHTML.toLowerCase();
+                var angEl = angular.element(input.target);
+                scope.category = angEl.text().toLowerCase();
 
                 for (var i=0, len = element[0].children.length; i<len; i++) {
                     if (element[0].children[i].classList.contains("active")) {
