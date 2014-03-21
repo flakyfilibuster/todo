@@ -1,4 +1,4 @@
-<div class="large-3 medium-3 columns">
+<div class="ff-filter-control-container large-3 medium-3 columns">
 <!--Sidebar content-->
         <input ng-model="query" type="text" placeholder="Search">
         <select ng-model="orderProp">
@@ -20,9 +20,9 @@
             <todoform></todoform>
 
             <ul class="todos">
-                <li ng-repeat="todo in todos | filter:query | orderBy:orderProp | status:this | category:this" ng-click="todoDetail(todo)" ng-class="{completed : todo.completed}">
-                        <i ng-hide="todo.completed" class="fa fa-square-o complete" ng-click="completeTodo(todo); $event.stopPropagation()"></i>
-                        <i ng-show="todo.completed" class="fa fa-check-square-o complete" ng-click="completeTodo(todo); $event.stopPropagation()"></i>
+                <li ng-repeat="todo in todos | filter:query | orderBy:orderProp | status:this | category:this" ng-click="todoDetail(todo, $event, $index, $element)" ng-class="{completed : todo.completed, selected: todo === selected}">
+                    <i ng-hide="todo.completed" class="fa fa-square-o complete" ng-click="completeTodo(todo); $event.stopPropagation()"></i>
+                    <i ng-show="todo.completed" class="fa fa-check-square-o complete" ng-click="completeTodo(todo); $event.stopPropagation()"></i>
                     {{todo.name}}
                     <i class="fa fa-times delete" ng-click="deleteTodo(todo._id); $event.stopPropagation()"></i>
                 </li>
@@ -32,12 +32,12 @@
         <div class="large-6 medium-6 columns">
             <div class="todo-detail">
                 <h3>{{selected.name}}</h3>
-                <h5>Created: {{selected.created.date}} @ {{selected.created.time}}</h5>
-                <h5 ng-show="selected.completed">Completed: {{selected.completed.date}} @ {{selected.completed.time}}</h5>
+                <h6><i class="fa fa-bullseye"></i>  {{selected.created.date}} {{selected.created.time}}</h6>
+                <h6><i class="fa fa-check-circle-o"></i>  {{selected.completed.date}} {{selected.completed.time}}</h6>
                 <br>
-                <h4 class="todo-notes">Notes</h4>
+                <h4 class="todo-notes">Notes <i class="fa fa-pencil-square-o"></i></h4>
                 <hr>
-                <flaky-editable></flaky-editable>
+                <ff-editable></ff-editable>
             </div>
         </div>
 <!--Body content END-->
