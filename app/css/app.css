@@ -63,7 +63,7 @@ i {
     margin-bottom: 1px;
 }
 
-.todo-items {
+.todo-items-container {
     overflow-y: auto;
     border: 1px solid #f2f2f2;
     border-top: 0;
@@ -75,29 +75,36 @@ i {
                 -5px 0 5px -4px rgba(0, 0, 0, 0.8);
 }
 
-.todos {
+.todos-list {
     list-style: none;
     margin: 0;
 }
 
-.todos li {
+.todos-list li {
     height: 50px;
     background-color: #f2f2f2;
     line-height: 50px;
     margin-bottom: 5px;
+}
+
+.todos-list li div {
     padding-left: 15px;
 }
 
-.todos li.selected {
+.todos-list li div span {
+    padding-left: 5px;
+}
+
+.todos-list li.selected {
     border: 1px solid lightgrey;
 }
 
-.todos li:hover {
+.todos-list li:hover {
     cursor: pointer;
     background-color: #e7e7e7;
 }
 
-.todos li:active {
+.todos-list li:active {
     background-color: lightgrey;
 }
 
