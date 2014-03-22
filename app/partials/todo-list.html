@@ -16,15 +16,12 @@
 
 <div class="large-9 medium-9 columns">
 <!--Body content-->
-        <div class="todo-items large-6 medium-6 columns">
-            <todoform></todoform>
+        <div class="todo-items-container large-6 medium-6 columns">
+            <ff-todoform></ff-todoform>
 
-            <ul class="todos">
+            <ul class="todos-list">
                 <li ng-repeat="todo in todos | filter:query | orderBy:orderProp | status:this | category:this" ng-click="todoDetail(todo, $event, $index, $element)" ng-class="{completed : todo.completed, selected: todo === selected}">
-                    <i ng-hide="todo.completed" class="fa fa-square-o complete" ng-click="completeTodo(todo); $event.stopPropagation()"></i>
-                    <i ng-show="todo.completed" class="fa fa-check-square-o complete" ng-click="completeTodo(todo); $event.stopPropagation()"></i>
-                    {{todo.name}}
-                    <i class="fa fa-times delete" ng-click="deleteTodo(todo._id); $event.stopPropagation()"></i>
+                    <ff-todoitem></ff-todoitem>
                 </li>
             </ul>
         </div>
