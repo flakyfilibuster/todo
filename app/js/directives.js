@@ -65,13 +65,24 @@ todocatDirectives.directive("ffSidenav", function() {
     };
 });
 
-todocatDirectives.directive("todoform", function() {
+todocatDirectives.directive("ffTodoform", function() {
     return {
         restrict: 'E',
         replace: true,
         templateUrl: 'partials/todo-input-form.html',
         link: function(scope, element, attrs) {
             scope.formData.category = "personal";
+        }
+    };
+});
+
+
+todocatDirectives.directive("ffTodoitem", function() {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'partials/todo-item.html',
+        link: function(scope, element, attrs) {
         }
     };
 });
