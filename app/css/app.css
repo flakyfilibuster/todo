@@ -75,11 +75,6 @@ i {
                 -5px 0 5px -4px rgba(0, 0, 0, 0.8);
 }
 
-.todos-list {
-    list-style: none;
-    margin: 0;
-}
-
 .todos-list li {
     height: 50px;
     background-color: #f2f2f2;
@@ -87,11 +82,18 @@ i {
     margin-bottom: 5px;
 }
 
-.todos-list li div {
+.slave-list li {
+    height: 35px;
+    background-color: #f2f2f2;
+    line-height: 35px;
+    margin-bottom: 5px;
+}
+
+.todos-list li div, .slave-list li div {
     padding-left: 15px;
 }
 
-.todos-list li div span {
+.todos-list li div span, .slave-list li div span {
     padding-left: 5px;
 }
 
@@ -134,7 +136,11 @@ li.completed {
 /*Todo List Right Pane (Todo Details) Styling*/
 /*++++++++++++++++++++++++++++++++++++++++++++*/
 #todo-notes-textarea, .ff-editable {
-    height: 150px;
+    height: 100px;
+}
+
+hr {
+    margin: 10px 0;
 }
 
 .ff-editable {

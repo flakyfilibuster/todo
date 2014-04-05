@@ -86,3 +86,33 @@ todocatDirectives.directive("ffTodoitem", function() {
         }
     };
 });
+
+todocatDirectives.directive("ffDnd", function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.on("dragstart", function(e) {
+                e.dataTransfer.setData("id", attrs.id);
+            });
+            element.on("drop", function(e) {
+                var droptarget = e.target.dataset.id,
+                    dragobject = e.dataTransfer.getData("id");
+
+                scope.slaveTask(dragobject, droptarget);
+            });
+            element.on("dragover", function(e) {
+                e.preventDefault();
+            })
+        }
+    };
+});
+
+todocatDirectives.directive("ffTodoslave", function() {
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: 'partials/todo-slave.html',
+        link: function(scope, element, attrs) {
+        }
+    };
+});

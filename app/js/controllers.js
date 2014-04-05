@@ -28,15 +28,33 @@ todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', function($scope
     };
 
     $scope.deleteTodo = function(target) {
-        Todo.delete(target)
-            .then(Todo.getAll()
-            .then(function(data) {
-                $scope.todos = data;
-        }));
+        console.log(target);
+        Todo.getSlaves(target).then(function(slaves) {
+            console.log(slaves);
+            if(slaves.length > 0) {
+                Todo.updateSlaves(target, slaves[0]._id)
+                .then(Todo.delete(target)
+                    .then(Todo.getAll()
+                    .then(function(data) {
+                        $scope.todos = data;
+                })));
+            } else {
+                Todo.delete(target)
+                    .then(Todo.getAll()
+                    .then(function(data) {
+                        $scope.todos = data;
+                }));
+            }
+        });
     };
 
     $scope.todoDetail = function(target) {
        $scope.selected = target;
+       console.log(target);
+       Todo.getSlaves(target._id).then(function(data) {
+           $scope.slaves = data;
+           console.log(data);
+       })
     };
 
     $scope.saveNotes = function(todo, element) {
@@ -46,6 +64,14 @@ todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', function($scope
             .then(function(data) {
                 $scope.todos = data;
         }));
+    };
+
+    $scope.slaveTask = function(masterId, slaveId) {
+        Todo.slaveIt(masterId, slaveId).then(function() {
+            Todo.getAll().then(function(data) {
+                $scope.todos = data;
+            })
+        });
     };
 
     $scope.completeTodo = function(target) {

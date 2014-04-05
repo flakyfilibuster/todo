@@ -15,7 +15,14 @@ todocatServices.factory('Todo', function($q) {
         },
         getAll: function(){
             var defer = this.defer();
-            db.find({}, function (err, docs) {
+            db.find({ $not: { slave: true }  } , function (err, docs) {
+                defer.resolve(docs);
+            });
+            return defer.promise;
+        },
+        getSlaves: function(masterId){
+            var defer = this.defer();
+            db.find({master: masterId}, function (err, docs) {
                 defer.resolve(docs);
             });
             return defer.promise;
@@ -36,6 +43,37 @@ todocatServices.factory('Todo', function($q) {
                       });
             return defer.promise;
         },
+        updateSlaves: function(oldMaster, newMaster) {
+            var defer = this.defer();
+            // update the first in row of the slaves
+            db.update({ _id : newMaster },
+                { $set: { slave: false, master: null } },
+                {}, 
+                function (err, numUpdated) {
+            });
+            // tell the old slaves who the new master is
+            db.update({ master : oldMaster },
+                { $set: { master: newMaster } },{ multi: true }, 
+                function (err, numUpdated) {
+                    defer.resolve(numUpdated);
+            });
+            return defer.promise;
+        },
+        slaveIt: function(masterId, slaveId) {
+            var defer = this.defer();
+            db.findOne({_id: masterId}, function (err, data) {
+                db.update({ _id: slaveId},
+                    { $set: { master: masterId, slave: true, slaveNr: data.slaveCount+1} },
+                    {}, function (err, numUpdated) {
+                    defer.resolve(numUpdated);
+                });
+                db.update({_id: masterId},
+                    {$set: {slaveCount: data.slaveCount+1}},
+                    function(err, numUpdated) {
+                });
+            })
+            return defer.promise;
+        },
         save: function(todo, callback) {
             var createDate = new Date(),
                 defer = this.defer();
@@ -44,6 +82,10 @@ todocatServices.factory('Todo', function($q) {
                 time: createDate.toLocaleTimeString("de")
             };
             todo.notes = "Double-Click to add notes";
+            todo.slave = false;
+            todo.slaveCount = 0;
+            todo.slaveNr = 0;
+            todo.master = null;
             db.insert(todo, function (err, newDoc) {
                 defer.resolve(newDoc);
             });
