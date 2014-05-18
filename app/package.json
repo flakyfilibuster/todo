@@ -3,6 +3,9 @@
   "main": "index.html",
   "version": "0.0.1",
   "single-instance": true,
+  "scripts": {
+    "start": "nw ."
+  },
   "window": {
     "toolbar": true,
     "title": "MyTodos",
