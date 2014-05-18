@@ -22,7 +22,7 @@ todocatServices.factory('Todo', function($q) {
         },
         getSlaves: function(masterId){
             var defer = this.defer();
-            db.find({master: masterId}, function (err, docs) {
+            db.find({master: masterId}).sort({ slaveNr: 1 }).exec( function (err, docs) {
                 defer.resolve(docs);
             });
             return defer.promise;
