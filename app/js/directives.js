@@ -98,6 +98,12 @@ todocatDirectives.directive("ffDnd", function() {
                 var droptarget = e.target.dataset.id,
                     dragobject = e.dataTransfer.getData("id");
 
+                // todo can't be slave of itself
+                if(dragobject === droptarget) {
+                    alert("Todo can't be slave of itself");
+                    return;
+                }
+
                 scope.slaveTask(dragobject, droptarget);
             });
             element.on("dragover", function(e) {
@@ -116,3 +122,38 @@ todocatDirectives.directive("ffTodoslave", function() {
         }
     };
 });
+
+todocatDirectives.directive("ffBtngroup", function() {
+    return {
+        restrict: 'E',
+        replace: true,
+        template: '<div class="ff-btn-group"><i class="fa fa-times" ng-click="close()"></i><i class="fa fa-minus" ng-click="minimize()"></i></div>',
+        link: function($scope, $element, $attrs) {
+            $scope.close = function() {
+                $scope.nwWin.close();
+            };
+
+            $scope.minimize = function() {
+                $scope.nwWin.minimize();
+            };
+        }
+    };
+});
+
+todocatDirectives.directive("ffSlide", function($document) {
+    return {
+        restrict: 'A',
+        link: function($scope, $element, $attrs) {
+            var direction = $attrs.ffSlide;
+            var $opener = angular.element($element[0].querySelector('.absolute-icon'));
+            $opener.bind('click', function() {
+                if ($scope.selected) {
+                    $element.toggleClass('slide-left');
+                    $opener.toggleClass('close-details');
+                }
+            })
+        }
+    }
+
+})
+
