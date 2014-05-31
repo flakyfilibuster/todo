@@ -7,13 +7,13 @@
     "start": "nw ."
   },
   "window": {
-    "toolbar": true,
+    "toolbar": false,
     "title": "MyTodos",
-    "width": 1024,
+    "width": 730,
     "height": 600,
     "position": "center",
     "resizable": false,
-    "frame": true,
+    "frame": false,
     "focus": true
   },
   "dependencies": {
