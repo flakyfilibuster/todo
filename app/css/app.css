@@ -6,6 +6,30 @@
 body {
     padding-top: 20px;
     height: 100%;
+    -webkit-user-select: none;
+    overflow: hidden;
+}
+
+header {
+    -webkit-app-region: drag;
+    background-color: white;
+    width: 100%;
+    margin-top: -20px;
+    margin-bottom: 15px;
+    padding-bottom: 30px;
+    height: 25px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.ff-btn-group {
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    -webkit-app-region: no-drag;
+}
+
+.ff-btn-group i:first-child {
+    padding-right: 20px;
 }
 
 .view-container, .view-frame, .columns {
@@ -23,8 +47,14 @@ i {
 /*++++++++++++++++++++++++++++++++++++++++++++*/
 /*Todo List Left Pane (Filter/ Nav) Styling*/
 /*++++++++++++++++++++++++++++++++++++++++++++*/
+.ff-filter-control-container {
+    width: 180px;
+    float: left;
+    padding: 0 15px;
+}
+
 .ff-side-nav {
-    margin: 0 -31px 0 0;
+    margin: 0 -15px 0 0;
     border: 1px solid #f2f2f2;
     border-right: 0;
 }
@@ -65,13 +95,15 @@ i {
 
 .todo-items-container {
     overflow-y: auto;
+    width: 500px;
+    float: left;
+    padding: 0 15px;
     border: 1px solid #f2f2f2;
     border-top: 0;
     border-bottom: 0;
     height: 95%;
     box-shadow: 0 9px 0px 0px white,
                 0 -9px 0px 0px white,
-                5px 0 5px -4px rgba(0, 0, 0, 0.8),
                 -5px 0 5px -4px rgba(0, 0, 0, 0.8);
 }
 
@@ -79,13 +111,6 @@ i {
     height: 50px;
     background-color: #f2f2f2;
     line-height: 50px;
-    margin-bottom: 5px;
-}
-
-.slave-list li {
-    height: 35px;
-    background-color: #f2f2f2;
-    line-height: 35px;
     margin-bottom: 5px;
 }
 
@@ -102,12 +127,16 @@ i {
 }
 
 .todos-list li:hover {
-    cursor: pointer;
+    cursor: move;
     background-color: #e7e7e7;
 }
 
 .todos-list li:active {
     background-color: lightgrey;
+}
+
+.todo-item {
+    position: relative;
 }
 
 .delete, .complete {
@@ -118,11 +147,15 @@ i {
 .delete {
     margin-top: 17px;
     position: absolute;
-    right: 30px;
+    right: 15px;
 }
 
 .delete:hover {
     -webkit-transform: scale(1.2);                                                                                                                                              
+}
+
+.delete:hover, .complete:hover {
+    cursor: pointer;
 }
 
 li.completed {
@@ -135,6 +168,25 @@ li.completed {
 /*++++++++++++++++++++++++++++++++++++++++++++*/
 /*Todo List Right Pane (Todo Details) Styling*/
 /*++++++++++++++++++++++++++++++++++++++++++++*/
+.todo-detail {
+    z-index: 10;
+    padding-left: 55px;
+    width: 500px;
+    height: 525px;
+    background-color: white;
+    position: absolute;
+    left: 680px;
+    -webkit-transition: all 600ms ease;
+    box-shadow: -6px 0 5px -4px rgba(0, 0, 0, 0.8);
+}
+
+.slave-list li {
+    height: 35px;
+    background-color: #f2f2f2;
+    line-height: 35px;
+    margin-bottom: 5px;
+}
+
 #todo-notes-textarea, .ff-editable {
     height: 100px;
 }
@@ -152,3 +204,28 @@ hr {
 .ff-editable:hover {
     background: #e1e1e1;
 }
+
+.slide-left {
+    -webkit-transform: translate3d(-485px, 0, 0);
+    -webkit-transition: -webkit-transform 400ms ease;
+}
+
+.absolute-icon {
+    opacity: 0.5;
+    position: absolute;
+    left: 15px;
+    top: 220px;
+    font-size: 37px;
+    -webkit-transition: all 600ms ease;
+}
+
+.absolute-icon:hover {
+    opacity: 0.8;
+    -webkit-transition: all 600ms ease;
+}
+
+.close-details {
+    -webkit-transform: rotate(540deg);
+    -webkit-transition: all 600ms ease;
+}
+
