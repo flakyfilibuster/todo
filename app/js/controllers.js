@@ -4,18 +4,19 @@
 
 var todocatControllers = angular.module('todocatControllers', []);
 
-todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', function($scope, Todo) {
+todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', '$window', function($scope, Todo, $window) {
+
+    // get nodewebkit window object
+    $scope.nwWin = $window.gui.Window.get();
 
     $scope.orderProp = 'name';
     $scope.status = 'all';
     $scope.formData = {};
     $scope.selected = null;
 
-
-
     Todo.getAll().then(function(data) {
-            $scope.todos = data;
-            $scope.selected = data[0];
+        $scope.todos = data;
+        $scope.selected = data[0];
     });
 
     $scope.createTodo = function() {
@@ -28,15 +29,18 @@ todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', function($scope
     };
 
     $scope.deleteTodo = function(target) {
-        console.log(target);
         Todo.getSlaves(target).then(function(slaves) {
-            console.log(slaves);
             if(slaves.length > 0) {
                 Todo.updateSlaves(target, slaves[0]._id)
                 .then(Todo.delete(target)
                     .then(Todo.getAll()
                     .then(function(data) {
                         $scope.todos = data;
+                        if ($scope.selected) {
+                            Todo.getSlaves(slaves[0]._id).then(function(data) {
+                                $scope.slaves = data;
+                            });
+                        }
                 })));
             } else {
                 Todo.delete(target)
@@ -46,14 +50,20 @@ todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', function($scope
                 }));
             }
         });
+        if ($scope.selected) {
+                
+
+            if(target === $scope.selected._id) {
+                $scope.selected = null;
+                $scope.slaves = null;
+            }
+        }
     };
 
     $scope.todoDetail = function(target) {
        $scope.selected = target;
-       console.log(target);
        Todo.getSlaves(target._id).then(function(data) {
            $scope.slaves = data;
-           console.log(data);
        })
     };
 
@@ -70,7 +80,14 @@ todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', function($scope
         Todo.slaveIt(masterId, slaveId).then(function() {
             Todo.getAll().then(function(data) {
                 $scope.todos = data;
-            })
+                if ($scope.selected) {
+                    if(masterId === $scope.selected._id) {
+                        Todo.getSlaves(masterId).then(function(data) {
+                            $scope.slaves = data;
+                        });
+                    }
+                }
+            });
         });
     };
 
