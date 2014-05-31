@@ -1,4 +1,8 @@
-<div class="ff-filter-control-container large-3 medium-3 columns">
+<header>
+  <ff-Btngroup></ff-Btngroup>
+</header>
+
+<div class="ff-filter-control-container">
 <!--Sidebar content-->
         <input ng-model="query" type="text" placeholder="Search">
         <select ng-model="orderProp">
@@ -14,35 +18,33 @@
 <!--Sidebar content END-->
 </div>
 
-<div class="large-9 medium-9 columns">
 <!--Body content-->
-        <div class="todo-items-container large-6 medium-6 columns">
-            <ff-todoform></ff-todoform>
+<div class="todo-items-container">
+    <ff-todoform></ff-todoform>
 
-            <ul class="todos-list no-bullet">
-                <li ng-repeat="todo in todos | filter:query | orderBy:orderProp | status:this | category:this" ng-click="todoDetail(todo, $event, $index, $element)" ng-class="{completed : todo.completed, selected: todo === selected}">
-                    <ff-todoitem></ff-todoitem>
-                </li>
-            </ul>
-        </div>
-
-        <div class="large-6 medium-6 columns">
-            <div class="todo-detail">
-                <h3>{{selected.name}}</h3>
-                <h6><i class="fa fa-bullseye"></i>  {{selected.created.date}} {{selected.created.time}}</h6>
-                <h6><i class="fa fa-check-circle-o"></i>  {{selected.completed.date}} {{selected.completed.time}}</h6>
-                <br>
-                <h4 class="todo-notes">Notes <i class="fa fa-pencil-square-o"></i></h4>
-                <hr>
-                <ff-editable></ff-editable>
-                <h5 class="stack">Stack</h5>
-                <hr>
-                <ul class="slave-list no-bullet">
-                    <li ng-repeat="slave in slaves" ng-class="{completed : todo.completed}">
-                        <ff-todoslave></ff-todoslave>
-                    </li>
-                </ul>
-            </div>
-        </div>
-<!--Body content END-->
+    <ul class="todos-list no-bullet">
+        <li ng-repeat="todo in todos | filter:query | orderBy:orderProp | status:this | category:this" ng-click="todoDetail(todo, $event, $index, $element)" ng-class="{completed : todo.completed, selected: todo === selected}">
+            <ff-todoitem></ff-todoitem>
+        </li>
+    </ul>
 </div>
+
+<!--</div>-->
+<div class="todo-detail" ff-slide="left">
+    <i class="fa fa-chevron-left absolute-icon"></i> 
+    <h3>{{selected.name}}</h3>
+    <h6><i class="fa fa-bullseye"></i>  {{selected.created.date}} {{selected.created.time}}</h6>
+    <h6><i class="fa fa-check-circle-o"></i>  {{selected.completed.date}} {{selected.completed.time}}</h6>
+    <br>
+    <h4 class="todo-notes">Notes <i class="fa fa-pencil-square-o"></i></h4>
+    <hr>
+    <ff-editable></ff-editable>
+    <h5 class="stack">Stack</h5>
+    <hr>
+    <ul class="slave-list no-bullet">
+        <li ng-repeat="slave in slaves" ng-class="{completed : todo.completed}">
+            <ff-todoslave></ff-todoslave>
+        </li>
+    </ul>
+</div>
+<!--Body content END-->
