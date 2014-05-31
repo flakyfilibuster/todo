@@ -1,10 +1,8 @@
 'use strict';
-
 /* App Module */
 
 var todocatApp = angular.module('todocatApp', [
   'ngRoute',
-  'todocatAnimations',
   'todocatControllers',
   'todocatFilters',
   'todocatDirectives',
