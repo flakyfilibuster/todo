@@ -31,7 +31,7 @@ todocatControllers.controller('TodoListCtrl', ['$scope', 'Todo', '$window', func
     $scope.deleteTodo = function(target) {
         Todo.getSlaves(target).then(function(slaves) {
             if(slaves.length > 0) {
-                Todo.updateSlaves(target, slaves[0]._id)
+                Todo.updateSlaves(target, slaves[0]._id, slaves.length-1)
                 .then(Todo.delete(target)
                     .then(Todo.getAll()
                     .then(function(data) {

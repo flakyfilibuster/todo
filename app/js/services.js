@@ -43,11 +43,11 @@ todocatServices.factory('Todo', function($q) {
                       });
             return defer.promise;
         },
-        updateSlaves: function(oldMaster, newMaster) {
+        updateSlaves: function(oldMaster, newMaster, numSlaves) {
             var defer = this.defer();
             // update the first in row of the slaves
             db.update({ _id : newMaster },
-                { $set: { slave: false, master: null } },
+                { $set: { slave: false, master: null, slaveCount: numSlaves } },
                 {}, 
                 function (err, numUpdated) {
             });
