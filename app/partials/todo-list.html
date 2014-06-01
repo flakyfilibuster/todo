@@ -23,7 +23,7 @@
     <ff-todoform></ff-todoform>
 
     <ul class="todos-list no-bullet">
-        <li ng-repeat="todo in todos | filter:query | orderBy:orderProp | status:this | category:this" ng-click="todoDetail(todo, $event, $index, $element)" ng-class="{completed : todo.completed, selected: todo === selected}">
+        <li ng-repeat="todo in todos | filter:query | orderBy:orderProp | status:this | category:this" ng-click="todoDetail(todo, $event, $index, $element)" ng-class="{completed : todo.completed, selected: todo === selected, stack: todo.slaveCount}">
             <ff-todoitem></ff-todoitem>
         </li>
     </ul>
