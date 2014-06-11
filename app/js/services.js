@@ -5,38 +5,35 @@ var Datastore = require('nedb'),
 
 /* Services */
 
-var todocatServices = angular.module('todocatServices', []);
+var todoServices = angular.module('todoServices', []);
 
-todocatServices.factory('Todo', function($q) {
+todoServices.factory('Todo', function($q) {
 
     return {
-        defer: function() {
-            return $q.defer();
-        },
         getAll: function(){
-            var defer = this.defer();
+            var defer = $q.defer();
             db.find({ $not: { slave: true }  } , function (err, docs) {
                 defer.resolve(docs);
             });
             return defer.promise;
         },
         getSlaves: function(masterId){
-            var defer = this.defer();
+            var defer = $q.defer();
             db.find({master: masterId}).sort({ slaveNr: 1 }).exec( function (err, docs) {
                 defer.resolve(docs);
             });
             return defer.promise;
         },
         get: function(todo){
-            var defer = this.defer();
+            var defer = $q.defer();
             db.findOne({_id: todo._id} , function (err, docs) {
                 defer.resolve(docs);
             });
             return defer.promise;
         }, 
-        update: function(todo, note) {
-            var defer = this.defer();
-            db.update({ _id: todo._id },
+        updateNote: function(todoId, note) {
+            var defer = $q.defer();
+            db.update({ _id: todoId },
                       { $set: { notes: note } },
                       {}, function (err, numUpdated) {
                             defer.resolve(numUpdated);
@@ -44,7 +41,7 @@ todocatServices.factory('Todo', function($q) {
             return defer.promise;
         },
         updateSlaves: function(oldMaster, newMaster, numSlaves) {
-            var defer = this.defer();
+            var defer = $q.defer();
             // update the first in row of the slaves
             db.update({ _id : newMaster },
                 { $set: { slave: false, master: null, slaveCount: numSlaves } },
@@ -60,7 +57,7 @@ todocatServices.factory('Todo', function($q) {
             return defer.promise;
         },
         slaveIt: function(masterId, slaveId) {
-            var defer = this.defer();
+            var defer = $q.defer();
             db.findOne({_id: masterId}, function (err, data) {
                 db.update({ _id: slaveId},
                     { $set: { master: masterId, slave: true, slaveNr: data.slaveCount+1} },
@@ -71,12 +68,12 @@ todocatServices.factory('Todo', function($q) {
                     {$set: {slaveCount: data.slaveCount+1}},
                     function(err, numUpdated) {
                 });
-            })
+            });
             return defer.promise;
         },
         save: function(todo, callback) {
             var createDate = new Date(),
-                defer = this.defer();
+                defer = $q.defer();
             todo.created = {
                 date: createDate.toDateString(),
                 time: createDate.toLocaleTimeString("de")
@@ -92,7 +89,7 @@ todocatServices.factory('Todo', function($q) {
             return defer.promise;
         },
         complete: function(todo) {
-            var defer = this.defer(),
+            var defer = $q.defer(),
                 completeDate = new Date(),
                 date = completeDate.toDateString(),
                 time = completeDate.toLocaleTimeString("de");
@@ -104,9 +101,9 @@ todocatServices.factory('Todo', function($q) {
                       });
             return defer.promise;
         },
-        delete: function(todo) {
-            var defer = this.defer();
-            db.remove({_id: todo}, {}, function (err, numRemoved) {
+        delete: function(todoId) {
+            var defer = $q.defer();
+            db.remove({_id: todoId}, {}, function (err, numRemoved) {
                 defer.resolve(numRemoved);
             });
             return defer.promise;
