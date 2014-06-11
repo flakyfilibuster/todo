@@ -2,9 +2,9 @@
 
 /* Filters */
 
-var todocatFilters = angular.module('todocatFilters', []);
+var todoFilters = angular.module('todoFilters', []);
 
-todocatFilters.filter('status', function() {
+todoFilters.filter('status', function() {
     return function(todos, scope) {
 
         function isCompleted(todo) {
@@ -30,7 +30,7 @@ todocatFilters.filter('status', function() {
     };
 });
 
-todocatFilters.filter('category', function() {
+todoFilters.filter('category', function() {
     return function(todos, scope) {
 
         if(scope.category === 'all') {
