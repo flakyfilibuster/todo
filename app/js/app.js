@@ -1,19 +1,20 @@
 'use strict';
 /* App Module */
 
-var todocatApp = angular.module('todocatApp', [
-  'ngRoute',
-  'todocatControllers',
-  'todocatFilters',
-  'todocatDirectives',
-  'todocatServices'
+var todoApp = angular.module('todoApp', [
+    'ngRoute',
+    'todoControllers',
+    'todoFilters',
+    'todoDirectives',
+    'todoServices'
 ]);
 
-todocatApp.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/', {
-        templateUrl: 'partials/todo-list.html',
-        controller: 'TodoListCtrl'
-      });
-  }]);
+todoApp.config(['$routeProvider',
+    function($routeProvider) {
+        $routeProvider.
+            when('/', {
+                templateUrl: 'partials/todo-list.html',
+                controller: 'TodoListCtrl'
+            });
+    }
+]);
