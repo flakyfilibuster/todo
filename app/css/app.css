@@ -143,6 +143,10 @@ i {
     outline: -webkit-focus-ring-color auto 5px;
 }
 
+.todos-list li .todo-item.dragging {
+    background-color: rgba(0, 112, 149, 0.22);
+}
+
 .todos-list li:hover {
     cursor: move;
     background-color: #e7e7e7;
