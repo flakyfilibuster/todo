@@ -72,11 +72,9 @@ todoServices.factory('Todo', function($q) {
             return defer.promise;
         },
         save: function(todo, callback) {
-            var createDate = new Date(),
-                defer = $q.defer();
+            var defer = $q.defer();
             todo.created = {
-                date: createDate.toDateString(),
-                time: createDate.toLocaleTimeString("de")
+                uTime: Date.now()
             };
             todo.notes = "Double-Click to add notes";
             todo.slave = false;
@@ -90,12 +88,10 @@ todoServices.factory('Todo', function($q) {
         },
         complete: function(todo) {
             var defer = $q.defer(),
-                completeDate = new Date(),
-                date = completeDate.toDateString(),
-                time = completeDate.toLocaleTimeString("de");
+                completeDate = Date.now();
 
             db.update({ _id: todo._id },
-                      { $set: { "completed.date": date, "completed.time": time } },
+                      { $set: { "completed.uTime": completeDate } },
                       {}, function (err, numUpdated) {
                             defer.resolve(numUpdated);
                       });
