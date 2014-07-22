@@ -17,6 +17,6 @@
     "focus": true
   },
   "dependencies": {
-    "nedb": "~0.10.4"
+    "nedb": "0.10.4"
   }
 }
