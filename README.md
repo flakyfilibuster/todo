@@ -12,21 +12,21 @@ Sort alphabetically or by time
 
 Filter by status & category
 ---
-![filterStatus](readmeimages/03.png?raw=true "filter status")
+![filterStatus](readmeImages/03.png?raw=true "filter status")
 
-![filterCat](readmeimages/04.png?raw=true "filter category")
+![filterCat](readmeImages/04.png?raw=true "filter category")
 
 Stack todos
 ---
-![stack todo](readmeimages/06.png?raw=true "stack todos")
+![stack todo](readmeImages/06.png?raw=true "stack todos")
 
 Todo details
 ---
-![todo details](readmeimages/07.png?raw=true "todo details")
+![todo details](readmeImages/07.png?raw=true "todo details")
 
 Search todos
 ---
-![search todo](readmeimages/08.png?raw=true "search todo")
+![search todo](readmeImages/08.png?raw=true "search todo")
 
 
 Install:
@@ -35,4 +35,4 @@ Either get the 'app' folder and build with your flavor of OS and nw version
 
 OR
 
-download the [mac OSX package](macTodo "download for mac")
+download the [mac OSX package](/macTodos "download for mac")
