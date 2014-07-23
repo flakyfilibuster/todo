@@ -1,0 +1,6 @@
+<div class="todo-item" draggable="true" ff-dnd data-id="{{todo._id}}" data-idx="{{$index}}">
+    <i ng-hide="todo.completed" class="fa fa-square-o complete" ng-click="completeTodo(todo); $event.stopPropagation()"></i>
+    <i ng-show="todo.completed" class="fa fa-check-square-o complete" ng-click="completeTodo(todo); $event.stopPropagation()"></i>
+    <span>{{todo.name}}</span>
+    <i class="fa fa-times delete" ng-click="deleteTodo(todo._id); $event.stopPropagation()"></i>
+</div>

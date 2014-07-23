@@ -1,0 +1,22 @@
+{
+  "name": "node-todo",
+  "main": "index.html",
+  "version": "0.0.1",
+  "single-instance": true,
+  "scripts": {
+    "start": "nw ."
+  },
+  "window": {
+    "toolbar": false,
+    "title": "MyTodos",
+    "width": 730,
+    "height": 600,
+    "position": "center",
+    "resizable": false,
+    "frame": false,
+    "focus": true
+  },
+  "dependencies": {
+    "nedb": "0.10.4"
+  }
+}
